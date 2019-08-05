@@ -1,6 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 import os.path
+import pandas as pd
 
 class AbstractDataLoader(ABC):
 
@@ -14,6 +15,7 @@ class AbstractDataLoader(ABC):
         if not os.path.isfile(filename):
             logging.error('File does not exist')
             # TODO: raise exception
+            raise Exception('file {} does not exist'.format(filename))
         else:
             logging.info('Found file: ' + filename)
 
@@ -28,10 +30,16 @@ class FileDataLoader(AbstractDataLoader):
     # Load data from file and return data
     def load_data(self):
         # TODO: Check file exists
+        
+        try: 
+            os.papth.isfile(self.filename)
 
-        # TODO: Load data from file
-        logging.info('Loading data using pandas')
-
-        # TODO: Return your data object here
-        return 0
-
+            # TODO: Load data from file
+            logging.info('Loading data using pandas')
+            data = pd.read_csv(self.filename, index_col = 0)
+            # TODO: Return your data object here
+            return data
+        
+        except Exception:
+            logging.error('File does not exist')
+            raise Exception('file {} does not exist'.format(self.filename))
