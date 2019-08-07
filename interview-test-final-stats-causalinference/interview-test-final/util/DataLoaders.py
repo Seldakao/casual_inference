@@ -26,13 +26,12 @@ class FileDataLoader(AbstractDataLoader):
         super().__init__()
         logging.info('Initializing Data Loading')
         self.filename = filename
-
+        
     # Load data from file and return data
     def load_data(self):
-        # TODO: Check file exists
-        
-        try: 
-            os.papth.isfile(self.filename)
+        # TODO: Check file exist
+         
+        if  os.path.isfile(self.filename):
 
             # TODO: Load data from file
             logging.info('Loading data using pandas')
@@ -40,6 +39,10 @@ class FileDataLoader(AbstractDataLoader):
             # TODO: Return your data object here
             return data
         
-        except Exception:
+        else:
             logging.error('File does not exist')
             raise Exception('file {} does not exist'.format(self.filename))
+
+#if __name__ == '__main__':
+#    test = FileDataLoader('C:/Users/Ying-Fang.Kao/Documents/causal_inference/interview-test-final-stats-causalinference/data/dataset.csv')
+#    data = test.load_data()
